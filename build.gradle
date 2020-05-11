@@ -20,6 +20,10 @@ dependencies {
 }
 
 test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
 }
