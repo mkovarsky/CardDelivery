@@ -4,11 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 @DisplayName("Тест формы заказа доставки карты")
 public class CardDeliveryFormTest {
+
+    LocalDate futureDate = LocalDate.now().plusDays(7);
+    LocalDate pastDate = LocalDate.now().minusDays(15);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     @BeforeEach
     void openURL() {
         open("http://localhost:9999");
@@ -32,7 +40,7 @@ public class CardDeliveryFormTest {
         SelenideElement form = $("form[class='form form_size_m form_theme_alfa-on-white']");
         form.$("[data-test-id=city] input").setValue("Уфа");
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        form.$("[data-test-id=date] input").setValue("25.05.2020");
+        form.$("[data-test-id=date] input").sendKeys(formatter.format(futureDate));
         form.$("[data-test-id=name] input").setValue("Евгений Рыбин");
         form.$("[data-test-id=phone] input").setValue("+79999999212");
         form.$("[data-test-id=agreement]").click();
@@ -73,7 +81,7 @@ public class CardDeliveryFormTest {
         SelenideElement form = $("form[class='form form_size_m form_theme_alfa-on-white']");
         form.$("[data-test-id=city] input").setValue("Уфа");
         form.$("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-        form.$("[data-test-id=date] input").setValue("25.05.2012");
+        form.$("[data-test-id=date] input").sendKeys(formatter.format(pastDate));
         form.$("[data-test-id=name] input").setValue("Евгений Рыбин");
         form.$("[data-test-id=phone] input").setValue("+79999999212");
         form.$("[data-test-id=agreement]").click();
