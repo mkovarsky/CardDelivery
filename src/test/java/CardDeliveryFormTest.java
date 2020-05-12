@@ -55,6 +55,7 @@ public class CardDeliveryFormTest {
         form.$("[data-test-id=city] input").setValue("Уф");
         $$(".menu-item").first().click();
         form.$(".icon-button").click();
+        $(".calendar__arrow_direction_right[data-step='1']").click();
         $$(".calendar__day").find(exactText("21")).click();
         form.$("[data-test-id=name] input").setValue("Евгений Рыбин");
         form.$("[data-test-id=phone] input").setValue("+79999999212");
